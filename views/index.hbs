@@ -1,0 +1,25 @@
+<div>
+{{#with data.bootcamp}}
+<p>{{class}}</p>
+{{!-- anything with data.bootcamp, we are going to display the key data. like class. Used to check something inside of something --}}
+{{/with}}
+
+{{#with data}}
+<p>{{firstName}} {{lastName}}</p>
+{{/with}}
+
+{{log data.isOn}}
+{{#if data.isOn }}
+{{!-- works with true and false statements hbs can't handle doing logic. --}}
+<p>{{data.firstName}} {{data.lastName}}</p>
+{{else}}
+{{!-- can do an if else here --}}
+<p>Who are you?</p>
+{{/if}}
+ 
+{{#each data}}
+{{!-- its a loop and this represents the data above --}}
+<p>{{this}}</p>
+{{/each}}
+
+</div>

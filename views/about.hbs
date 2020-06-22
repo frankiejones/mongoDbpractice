@@ -1,0 +1,19 @@
+<h2>Sign up to our database</h2> 
+
+<form action="/about" method="POST">
+    <label className="label-input" for="userName">User Name</label>
+    <input id="userName" className="input" type="userName" name="userName" placeholder="Eg. Frankie123"/>
+    <label className="label-input" for="email">Email Address</label>
+    <input id="email" className="input" type="email" name="email" placeholder="Eg. example@email.com"/>
+    <label className="label-input" for="password">Password</label>
+    <input id="password" className="input" type="password" name="password" placeholder="Eg. password123"/>
+    <input type="submit" value="Submit">
+</form>
+
+{{err}}
+<ul>
+{{#each user}}
+<li>{{this.userName}}</li>
+<li>{{this.email}}</li>
+{{/each}}
+</ul>

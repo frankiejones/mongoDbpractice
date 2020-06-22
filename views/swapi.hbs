@@ -1,0 +1,10 @@
+<h1>{{data}}</h1>
+
+<ul>
+    {{#each data}}
+{{!-- each is a loop thru the object--}}
+    {{log @key}} 
+    <li>{{@key}}: {{this}}</li>
+    {{!-- this is referring to the items inside of data --}}
+    {{/each}}
+</ul>

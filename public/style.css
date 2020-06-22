@@ -1,0 +1,49 @@
+
+/* pokemon */
+.charmander{
+    color: orangered;
+}
+
+.mewtwo{
+    color: purple;
+}
+
+/* harry potter */
+.Gryffindor{
+    color: red;
+}
+
+.Ravenclaw{
+ color: silver;
+}
+
+.Hufflepuff {
+        color: yellow;
+}
+
+.Slytherin {
+    color: green
+}
+
+/* navbar */
+
+#navbar{
+    background-color: plum;
+}
+
+li{
+    list-style-type: none;
+    margin: 0 2vh;
+}
+
+a{
+    text-decoration: none;
+    padding: 2vh;
+    color: white;
+}
+
+ul{
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
