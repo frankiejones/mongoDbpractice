@@ -12,11 +12,12 @@ mongoose.connect(process.env.databaseURL, {
     useNewUrlParser:true, useUnifiedTopology: true
 });
 
-const APIdata = require('./lib/getAPI')
+const APIdata = require('./lib/getAPI');
 const getSwapi = require('./lib/getSwapi');
 const getPokemon = require('./lib/getPokemon');
 const userModel = require('./models/userModel');
 const productModel = require('./models/productModel');
+const animalModel = require('./models/animalModel');
 
 app.use(bodyParser.urlencoded({extended: false}));
 // form that accepts urls - take everything as a string
@@ -27,7 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.engine('.hbs', hbs({
     defaultLayout: 'layout',
     extname: 'hbs'
-}))
+}));
 
 app.set('view engine', '.hbs');
 //view that I'm rendering plus the engine ext name
@@ -45,10 +46,10 @@ app.get('/', async (req, res) => {
         name: "frankie",
         price: 3,
         inStock:true
-    })
-    product.save()
+    });
+    product.save();
     res.render('index');
-})
+});
 
 app.get('/about', async (req, res) => {
     let ID = "5ef0aa0a4f7f28616bf3fcea"
@@ -59,20 +60,16 @@ app.get('/about', async (req, res) => {
     // find will return an array - map through it to get the users
     // find and update is a good one to try out
     console.log(user);
- 
     res.render('about', {user});
 });
 
 app.post('/about', async (req, res) => {
-
     let { userName, email, password } = req.body;
-
     if (!userName || !email || !password) {
         //get user info from form, has all fields been filled out? 
 		res.render('about', {err: "Please provide all credentials"});
 		return; // this stops the execution of any of the code below if any of the if statement is not met.
     };
- 
     const user = new userModel({
         //userName:req.body.userName, // referf to the form with action post
         //email:req.body.email, // refers to email name in form
@@ -80,38 +77,83 @@ app.post('/about', async (req, res) => {
         userName, // referf to the form with action post
         email, // refers to email name in form
         password // refers to passowrd name in form 
-    })
+    });
     await user.save()
-    res.render('about');
+    res.render('about', {userFind});
 });
 
+app.get('/user', (req,res) => {
+ res.render('user');
+});
+
+app.post('/user', async (req,res) => {
+    let email = req.body.findUser
+    // console.log(userName);
+    const userFind = await userModel.findOne({email});
+    //console.log(userFind);
+    res.render('user', {userFind});
+});
 
 app.get('/harry', async (req, res) => {
     let data = await APIdata.getSortingHat();
     console.log(data);
     res.render('harry', { data });
-})
+});
 
 app.get('/swapi', async(req, res) => {
     let data = await getSwapi();
     // console.log(data);
     res.render('swapi', {data});
-
-})
+});
 
 app.get('/pokemon', async(req, res) => {
     let pokemon = 'mewtwo'
     let data = await getPokemon(pokemon);
     console.log(data);
     res.render('pokemon', {pokemon, data});
-})
+});
 
 app.post('/pokemon', async(req, res) => {
     let pokemon = req.body.pokemon; // somewhere in the body, there is a name called pokemon
     let data = await getPokemon(pokemon);
     console.log(data);
     res.render('pokemon', { pokemon, data });
-})
+});
+
+app.get('/animalForm', async (req, res) => {
+    res.render('animalForm');
+});
+
+app.post('/animalForm', async (req, res) => {
+    let { petName, typeOf, breed, dob } = req.body;
+    if (!petName || !typeOf || !breed || !dob) {
+        //get animal info from form, has all fields been filled out? 
+		res.render('animalForm', {err: "Please provide all credentials"});
+		return; // this stops the execution of any of the code below if any of the if statement is not met.
+    };
+    const animal = new animalModel({
+        petName, 
+        typeOf,
+        breed, 
+        dob 
+    })
+    await animal.save()
+    res.render('animalForm');
+});
+
+app.get('/animals', (req,res) => {
+    res.render('animals');
+});
+   
+app.post('/animals', async (req,res) => {
+    let petName = req.body.findPet
+    // console.log(userName);
+    const findAnimal = await animalModel.findOne({petName});
+    //console.log(userFind);
+    res.render('animals', {findAnimal});
+});
+   
+
 
 
 

@@ -1,0 +1,13 @@
+<h3>Search for the animal by the name</h3>
+<form action="/animals" method="post">
+<label for="petName">Search</label>
+<input type="text" name="findPet" placeholder="Eg Fluffy Jones">
+<input type="submit" value="Submit">
+</form>
+
+{{#each findAnimal}}
+<p>{{this.petName}}</p>
+<p>{{this.tyoeOf}}</p>
+<p>{{this.breed}}</p>
+<p>{{this.dob}}</p>
+{{/each}}

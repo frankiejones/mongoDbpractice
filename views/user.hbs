@@ -1,0 +1,11 @@
+<h3>Search for the user by username</h3>
+<form action="/user" method="post">
+<label for="userName">Search for the user</label>
+<input type="text" name="findUser" placeholder="Eg. Frankie123">
+<input type="submit" value="Submit">
+</form>
+
+{{#each userFind}}
+<p>{{this.userName}}</p>
+<p>{{this.email}}</p>
+{{/each}}
